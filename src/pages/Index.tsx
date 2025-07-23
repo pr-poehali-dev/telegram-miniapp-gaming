@@ -4,10 +4,15 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const StarIcon = ({ size = 16, className = "" }) => (
+    <div className={`${className}`} style={{ fontSize: size }}>✦</div>
+  );
 
   const games = [
     {
@@ -57,58 +62,103 @@ const Index = () => {
     switch (activeTab) {
       case 'home':
         return (
-          <div className="space-y-6">
-            <div className="text-center space-y-4">
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-casino-gold to-casino-darkGold bg-clip-text text-transparent">
-                🎰 Casino Royal
-              </h1>
-              <p className="text-casino-lightGray text-lg">
-                Испытай удачу в премиум казино с крупными выигрышами
-              </p>
-              <div className="flex items-center justify-center space-x-4 text-sm">
-                <div className="flex items-center space-x-1">
-                  <Icon name="Coins" size={16} className="text-casino-gold" />
-                  <span className="text-casino-gold font-semibold">2,350</span>
+          <div className="space-y-8 py-8">
+            {/* Hero Section */}
+            <div className="text-center space-y-6 relative">
+              {/* Floating Stars */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <StarIcon size={20} className="absolute top-4 left-8 text-casino-gold animate-pulse" />
+                <StarIcon size={16} className="absolute top-12 right-12 text-casino-gold/60 animate-pulse delay-500" />
+                <StarIcon size={12} className="absolute top-20 left-16 text-casino-gold/40 animate-pulse delay-1000" />
+                <StarIcon size={14} className="absolute top-6 right-6 text-casino-gold/80 animate-pulse delay-300" />
+                <StarIcon size={18} className="absolute top-16 left-1/3 text-casino-gold/50 animate-pulse delay-700" />
+              </div>
+
+              {/* Logo and Title */}
+              <div className="relative z-10">
+                <div className="w-24 h-24 mx-auto mb-6 relative">
+                  <div className="w-full h-full bg-gradient-to-br from-casino-gold to-orange-500 rounded-full flex items-center justify-center relative overflow-hidden">
+                    <div className="text-4xl">🐸</div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-casino-gold/20 to-transparent animate-pulse"></div>
+                  </div>
+                  <div className="absolute -inset-2 border-2 border-casino-gold/30 rounded-full animate-spin-slow"></div>
                 </div>
-                <div className="w-px h-4 bg-casino-gray"></div>
-                <div className="flex items-center space-x-1">
-                  <Icon name="Flame" size={16} className="text-casino-red" />
-                  <span className="text-casino-red font-semibold">7 дней</span>
+                
+                <h1 className="text-5xl font-bold bg-gradient-to-r from-casino-gold via-orange-400 to-casino-gold bg-clip-text text-transparent tracking-wide">
+                  STARSHUB
+                </h1>
+                
+                <div className="flex items-center justify-center space-x-2 mt-3">
+                  <StarIcon size={12} className="text-casino-gold animate-pulse" />
+                  <p className="text-casino-lightGray text-lg font-light">
+                    Premium Gaming Experience
+                  </p>
+                  <StarIcon size={12} className="text-casino-gold animate-pulse delay-500" />
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {games.slice(0, 4).map((game) => (
-                <Card key={game.id} className="game-card group">
-                  <div className="text-center space-y-3">
-                    <div className={`w-12 h-12 mx-auto rounded-full bg-gradient-to-r ${game.color} flex items-center justify-center group-hover:animate-pulse-gold`}>
-                      <Icon name={game.icon as any} size={24} className="text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white">{game.name}</h3>
-                      <p className="text-xs text-casino-lightGray">{game.description}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+            {/* Stats Section */}
+            <div className="flex justify-center space-x-8 py-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-casino-gold">2.5K</div>
+                <div className="text-casino-lightGray text-sm">Баланс</div>
+              </div>
+              <div className="w-px h-12 bg-casino-gold/20"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-casino-gold">15</div>
+                <div className="text-casino-lightGray text-sm">Уровень</div>
+              </div>
+              <div className="w-px h-12 bg-casino-gold/20"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-casino-gold">7</div>
+                <div className="text-casino-lightGray text-sm">Серия</div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Button 
-                className="gold-button"
-                onClick={() => setActiveTab('games')}
-              >
-                <Icon name="Gamepad2" size={20} />
-                Все игры
-              </Button>
-              <Button 
-                className="gold-button"
-                onClick={() => setActiveTab('tasks')}
-              >
-                <Icon name="Gift" size={20} />
-                Бонусы
-              </Button>
+            {/* Quick Actions */}
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <Card className="bg-gradient-to-br from-casino-darkGray/80 to-casino-black/80 border border-casino-gold/20 p-6 text-center hover:border-casino-gold/40 transition-all duration-300 cursor-pointer group"
+                  onClick={() => setActiveTab('games')}>
+                  <div className="space-y-3">
+                    <div className="w-12 h-12 mx-auto bg-gradient-to-r from-casino-gold to-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon name="Gamepad2" size={24} className="text-black" />
+                    </div>
+                    <h3 className="text-white font-semibold">Играть</h3>
+                    <p className="text-casino-lightGray text-sm">Начать игру</p>
+                  </div>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-casino-darkGray/80 to-casino-black/80 border border-casino-gold/20 p-6 text-center hover:border-casino-gold/40 transition-all duration-300 cursor-pointer group"
+                  onClick={() => setActiveTab('tasks')}>
+                  <div className="space-y-3">
+                    <div className="w-12 h-12 mx-auto bg-gradient-to-r from-casino-gold to-orange-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon name="Trophy" size={24} className="text-black" />
+                    </div>
+                    <h3 className="text-white font-semibold">Задания</h3>
+                    <p className="text-casino-lightGray text-sm">Получить награды</p>
+                  </div>
+                </Card>
+              </div>
+
+              {/* Daily Bonus */}
+              <Card className="bg-gradient-to-r from-casino-gold/10 to-orange-500/10 border border-casino-gold/30 p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-casino-gold rounded-full flex items-center justify-center">
+                      <Icon name="Gift" size={20} className="text-black" />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold">Ежедневный бонус</h3>
+                      <p className="text-casino-gold text-sm">+500 монет доступно</p>
+                    </div>
+                  </div>
+                  <Badge className="bg-casino-gold text-black font-semibold">
+                    Получить
+                  </Badge>
+                </div>
+              </Card>
             </div>
           </div>
         );
@@ -171,14 +221,17 @@ const Index = () => {
         return (
           <div className="space-y-6">
             <div className="text-center space-y-4">
-              <Avatar className="w-20 h-20 mx-auto border-2 border-casino-gold">
-                <AvatarFallback className="bg-casino-gold text-casino-black text-2xl font-bold">
-                  👤
-                </AvatarFallback>
-              </Avatar>
+              <div className="relative">
+                <Avatar className="w-20 h-20 mx-auto border-2 border-casino-gold">
+                  <AvatarFallback className="bg-casino-gold text-casino-black text-2xl font-bold">
+                    🐸
+                  </AvatarFallback>
+                </Avatar>
+                <div className="absolute -inset-1 border border-casino-gold/30 rounded-full animate-pulse"></div>
+              </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Игрок #1337</h2>
-                <p className="text-casino-lightGray">VIP статус</p>
+                <Badge className="bg-casino-gold text-black font-semibold mt-2">VIP статус</Badge>
               </div>
             </div>
 
@@ -219,16 +272,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-casino-black relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-casino-darkGray/20 to-transparent pointer-events-none" />
-      <div className="absolute top-10 right-10 w-32 h-32 bg-casino-gold/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-24 h-24 bg-casino-red/5 rounded-full blur-2xl pointer-events-none" />
+      {/* Animated Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-casino-black via-casino-darkGray/20 to-casino-black"></div>
+        {/* Floating Stars Background */}
+        <div className="absolute top-20 left-10 text-casino-gold/30 animate-pulse" style={{ fontSize: '12px' }}>✦</div>
+        <div className="absolute top-40 right-16 text-casino-gold/20 animate-pulse delay-1000" style={{ fontSize: '8px' }}>✦</div>
+        <div className="absolute top-60 left-1/4 text-casino-gold/40 animate-pulse delay-500" style={{ fontSize: '10px' }}>✦</div>
+        <div className="absolute top-80 right-1/3 text-casino-gold/25 animate-pulse delay-700" style={{ fontSize: '14px' }}>✦</div>
+        <div className="absolute bottom-40 left-12 text-casino-gold/35 animate-pulse delay-300" style={{ fontSize: '16px' }}>✦</div>
+        <div className="absolute bottom-60 right-8 text-casino-gold/20 animate-pulse delay-1200" style={{ fontSize: '12px' }}>✦</div>
+      </div>
 
       {/* Header */}
       <div className="flex items-center justify-between p-4 relative z-10">
         <div className="flex items-center space-x-2">
-          <Icon name="Sparkles" size={24} className="text-casino-gold animate-spin-slow" />
-          <span className="text-sm text-casino-lightGray">Royal Casino</span>
+          <StarIcon size={20} className="text-casino-gold animate-spin-slow" />
+          <span className="text-sm text-casino-lightGray font-medium">StarsHub</span>
         </div>
         
         <DropdownMenu open={isProfileOpen} onOpenChange={setIsProfileOpen}>
@@ -236,7 +296,7 @@ const Index = () => {
             <Button variant="ghost" size="sm" className="hover:bg-casino-gray">
               <Avatar className="w-8 h-8 border border-casino-gold">
                 <AvatarFallback className="bg-casino-gold text-casino-black text-sm font-bold">
-                  👤
+                  🐸
                 </AvatarFallback>
               </Avatar>
             </Button>
